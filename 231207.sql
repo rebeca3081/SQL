@@ -14,13 +14,13 @@ from employees;
 select department_id, location_id
 from departments;
 
-select location_id, department_id --³ª¿­µÈ ¼ø¼­´ë·Î Ãâ·ÂµÊ
+select location_id, department_id --ë‚˜ì—´ëœ ìˆœì„œëŒ€ë¡œ ì¶œë ¥ë¨
 from departments;
 
 select department_id, department_id
 from departments;
 
-select last_name, salary, salary + 300 --»ê¼ú½Ä »ç¿ë°¡´É
+select last_name, salary, salary + 300 --ì‚°ìˆ ì‹ ì‚¬ìš©ê°€ëŠ¥
 from employees;
 
 select last_name, salary, 12 * salary + 100
@@ -36,22 +36,22 @@ from employees;
 select last_name, 12 * salary * commission_pct
 from employees;
 
-select last_name, 12 * salary * NVL(commission_pct, 1) --Áß¿ä
+select last_name, 12 * salary * NVL(commission_pct, 1) --ì¤‘ìš”
 from employees;
 
 select last_name as name, commission_pct comm
 from employees;
 
-select last_name as "Name", commission_pct "Annual Salary" --"" : ´ë¼Ò¹®ÀÚ °ø¹éµî
+select last_name as "Name", commission_pct "Annual Salary" --"" : ëŒ€ì†Œë¬¸ì ê³µë°±ë“±
 from employees;
 
-select last_name as ÀÌ¸§, commission_pct º¸³Ê½º --ÇÑ±Ûµµ °¡´É
+select last_name as ì´ë¦„, commission_pct ë³´ë„ˆìŠ¤ --í•œê¸€ë„ ê°€ëŠ¥
 from employees;
 
-select last_name || job_id as "Employees" --¿¬°á
+select last_name || job_id as "Employees" --ì—°ê²°
 from employees;
 
-select  last_name || ' is a ' || job_id --¿¬°á
+select  last_name || ' is a ' || job_id --ì—°ê²°
         as "Employees Details"
 from    employees;
 
@@ -64,7 +64,7 @@ from    employees;
 select  distinct department_id, job_id
 from    employees;
 
--- ¹®Á¦Ç®±â
+-- ë¬¸ì œí’€ê¸°
 -- 1.
 desc    departments;
 
@@ -96,7 +96,7 @@ select  job_id || ', ' || last_name
         as "Employee and Title"
 from    employees;
 
--- whereÀı
+-- whereì ˆ
 select  employee_id, last_name, job_id, department_id
 from    employees
 where   department_id = 90;
@@ -113,7 +113,7 @@ select  last_name, salary
 from    employees
 where   salary <= 3000;
 
--- ¹®Á¦
+-- ë¬¸ì œí’€ê¸° part 1
 select  last_name, hire_date
 from    employees
 where   hire_date <= '04/12/31';
@@ -131,7 +131,7 @@ where   manager_id in (100, 101, 201);
 -- like
 select  first_name
 from    employees
-where   first_name like 'S%'; -- 0°³ÀÌ»óÀÇ ¹®ÀÚ¿Í ´ëÄ¡
+where   first_name like 'S%'; -- 0ê°œì´ìƒì˜ ë¬¸ìì™€ ëŒ€ì¹˜
 
 select  last_name
 from    employees
@@ -147,7 +147,7 @@ where   last_name like '_o%';
 
 select  employee_id, last_name, job_id
 from    employees
-where   job_id like '%SA_%'; --SA·Î Ã£À½
+where   job_id like '%SA_%'; --SAë¡œ ì°¾ìŒ
 
 select  employee_id, last_name, job_id
 from    employees
@@ -166,7 +166,7 @@ select  *
 from    employees
 where   commission_pct is null;
 
--- ³í¸® ¿¬»êÀÚ and
+-- ë…¼ë¦¬ ì—°ì‚°ì and
 select  employee_id, last_name, job_id, salary
 from    employees
 where   salary >= 10000
@@ -184,7 +184,7 @@ from    employees
 where   job_id
 not in  ('IT_PROG', 'ST_CLERK', 'SA_REP');
 
--- ¿ì¼±¼øÀ§
+-- ìš°ì„ ìˆœìœ„
 select  last_name, job_id, salary
 from    employees
 where   job_id = 'SA_REP'
@@ -198,7 +198,7 @@ or      job_id = 'AD_PRES')
 and     salary > 15000;
 
 
--- ¹®Á¦Ç®ÀÌ part 2
+-- ë¬¸ì œí’€ê¸° part 2
 -- 1.
 select  last_name, salary
 from    employees
@@ -223,4 +223,33 @@ and     department_id in (20, 50);
 -- 7.
 select last_name, hire_date
 from employees
-where hire_date like '14%';
+where hire_date like '14%'; -- 14ë…„ë„ ì…ì‚¬ì ì—†ìŒ! 01ë…„ë„ ~ 08ë…„ë„ê¹Œì§€ë§Œ ìˆìŒ...
+
+-- 8.
+select last_name, job_id
+from employees
+where manager_id is null;
+
+-- 10.
+select last_name
+from employees
+where last_name like '__a%';
+
+-- 11.
+select last_name
+from employees
+where last_name like '%a%' -- aê°€ í¬í•¨ëœ ê°’
+or last_name like 'A%' -- Aë¡œ ì‹œì‘í•˜ëŠ” ê°’
+or last_name like '%e%'
+or last_name like 'E%';
+
+-- 12.
+select last_name, job_id, salary
+from employees
+where job_id in ('SA_REP', 'ST_CLERK')
+and salary not in (2500, 3500, 7000);
+
+-- 13.
+select last_name, salary, commission_pct
+from employees
+where commission_pct = 0.2;
