@@ -1,55 +1,55 @@
-select *
-from tab;
+select  *
+from    tab;
 
 select * from employees;
 
-desc departments;
+desc    departments;
 
-select *
-from departments;
+select  *
+from    departments;
 
-select *
-from employees;
+select  *
+from    employees;
 
-select department_id, location_id
-from departments;
+select  department_id, location_id
+from    departments;
 
-select location_id, department_id --나열된 순서대로 출력됨
-from departments;
+select  location_id, department_id --나열된 순서대로 출력됨
+from    departments;
 
-select department_id, department_id
-from departments;
+select  department_id, department_id
+from    departments;
 
-select last_name, salary, salary + 300 --산술식 사용가능
-from employees;
+select  last_name, salary, salary + 300 --산술식 사용가능
+from    employees;
 
-select last_name, salary, 12 * salary + 100
-from employees;
+select  last_name, salary, 12 * salary + 100
+from    employees;
 
-select last_name, salary, 12 * (salary + 100)
-from employees;
+select  last_name, salary, 12 * (salary + 100)
+from    employees;
 
 -- null
-select last_name, job_id, salary, commission_pct
-from employees;
+select  last_name, job_id, salary, commission_pct
+from    employees;
 
-select last_name, 12 * salary * commission_pct
-from employees;
+select  last_name, 12 * salary * commission_pct
+from    employees;
 
-select last_name, 12 * salary * NVL(commission_pct, 1) --중요
-from employees;
+select  last_name, 12 * salary * NVL(commission_pct, 1) --중요
+from    employees;
 
-select last_name as name, commission_pct comm
-from employees;
+select  last_name as name, commission_pct comm
+from    employees;
 
-select last_name as "Name", commission_pct "Annual Salary" --"" : 대소문자 공백등
-from employees;
+select  last_name as "Name", commission_pct "Annual Salary" --"" : 대소문자 공백등
+from    employees;
 
-select last_name as 이름, commission_pct 보너스 --한글도 가능
-from employees;
+select  last_name as 이름, commission_pct 보너스 --한글도 가능
+from    employees;
 
-select last_name || job_id as "Employees" --연결
-from employees;
+select  last_name || job_id as "Employees" --연결
+from    employees;
 
 select  last_name || ' is a ' || job_id --연결
         as "Employees Details"
@@ -151,7 +151,7 @@ where   job_id like '%SA_%'; --SA로 찾음
 
 select  employee_id, last_name, job_id
 from    employees
-where   job_id like '%SA\_%' escape '\'; --escape ' ' 
+where   job_id like '%SA\_%' escape '\'; --escape ' ' : 어떤 문자든 상관 X
 
 select  employee_id, last_name, job_id
 from    employees
@@ -221,35 +221,35 @@ where   salary not between 5000 and 12000
 and     department_id in (20, 50);
 
 -- 7.
-select last_name, hire_date
-from employees
-where hire_date like '14%'; -- 14년도 입사자 없음! 01년도 ~ 08년도까지만 있음...
+select  last_name, hire_date
+from    employees
+where   hire_date like '14%'; -- 14년도 입사자 없음! 01년도 ~ 08년도까지만 있음...
 
 -- 8.
-select last_name, job_id
-from employees
-where manager_id is null;
+select  last_name, job_id
+from    employees
+where   manager_id is null;
 
 -- 10.
-select last_name
-from employees
-where last_name like '__a%';
+select  last_name
+from    employees
+where   last_name like '__a%';
 
 -- 11.
-select last_name
-from employees
-where last_name like '%a%' -- a가 포함된 값
-or last_name like 'A%' -- A로 시작하는 값
-or last_name like '%e%'
-or last_name like 'E%';
+select  last_name
+from    employees
+where   last_name like '%a%' -- a가 포함된 값
+or      last_name like 'A%' -- A로 시작하는 값
+or      last_name like '%e%'
+or      last_name like 'E%';
 
 -- 12.
-select last_name, job_id, salary
-from employees
-where job_id in ('SA_REP', 'ST_CLERK')
-and salary not in (2500, 3500, 7000);
+select  last_name, job_id, salary
+from    employees
+where   job_id in ('SA_REP', 'ST_CLERK')
+and     salary not in (2500, 3500, 7000);
 
 -- 13.
-select last_name, salary, commission_pct
-from employees
-where commission_pct = 0.2;
+select  last_name, salary, commission_pct
+from    employees
+where   commission_pct = 0.2;
