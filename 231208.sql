@@ -339,13 +339,47 @@ where   department_id = 90;
 
 -- part_3
 -- 1.
-select  last_name || ' earns '
+select  last_name || ' earns'
         || to_char(salary, '$99,999.00')
-        || ' monthly but wants '
+        || 'monthly but wants'
         || to_char(salary * 3, '$99,999.00')
 from    employees;
 
 -- 2.
 select  last_name, hire_date,
-        next_day((hire_date + 6), '월') as REVIEW
-from    
+        to_char(next_day(add_months(hire_date, 6), '월'), 'yyyy.MM.dd" "DAY')
+            as REVIEW
+from    employees;
+
+-- 3.
+select      last_name, hire_date, to_char(hire_date, 'DAY') as day
+from        employees
+order by    to_char(hire_date - 1, 'D'); -- D는 요일을 숫자로 나타냄. 일요일이 1인데 -1을 빼서 월요일을 1로 함.
+
+-- 4.
+select  last_name, 
+        NVL(to_char(commission_pct), 'No Commission') as comn
+from    employees;
+
+-- 5.
+-- decode 함수 사용
+select  last_name, job_id,
+        decode (job_id, 'AD_PRES',  'A',
+                    'ST_MAN',   'B',
+                    'IT_PROG',  'C',
+                    'ST_REP',   'D',
+                    'ST_CLERK', 'E',
+                                '0')
+        as grade
+from    employees;
+
+-- case 구문 사용
+select  last_name, job_id, 
+        case    when job_id = 'AD_PRES'  then 'A'
+                when job_id = 'ST_MAN'   then 'B'
+                when job_id = 'IT_PROG'  then 'C'
+                when job_id = 'ST_REP'   then 'D'
+                when job_id = 'ST_CLERK' then 'E'
+                else '0'
+        end as grade
+from    employees;
