@@ -365,11 +365,11 @@ from    employees;
 -- decode 함수 사용
 select  last_name, job_id,
         decode (job_id, 'AD_PRES',  'A',
-                    'ST_MAN',   'B',
-                    'IT_PROG',  'C',
-                    'ST_REP',   'D',
-                    'ST_CLERK', 'E',
-                                '0')
+                        'ST_MAN',   'B',
+                        'IT_PROG',  'C',
+                        'ST_REP',   'D',
+                        'ST_CLERK', 'E',
+                                    '0')
         as grade
 from    employees;
 
