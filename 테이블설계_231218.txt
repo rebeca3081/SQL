@@ -1,0 +1,80 @@
+[테이블 설계]
+
+1. 회원테이블 : members
+ 	
+- 회원번호 : 	member_no	varchar2(6) 	primary key,
+- 회원명 : 	member_name	varchar2(10)	not null,
+- 전화번호 : 	member_phone	varchar2(10),
+- 가입날짜 : 	join_date		date 		default sysdate,
+- 등급:		grade		varchar2(5)	default '신규회원',
+- 가입승인여부 : 	approval		varchar2(5)	default '미승인'
+
+
+2. 공지글 테이블 : boards
+
+- 공지글번호:	boards_no	number(5)	primary key,  
+- 글내용:		boards_content	varchar2(500),
+- 작성자: 		boards_wirter	varchar2(5)	default '장효은',
+- 작성일자:	wirter_date	date 		default sysdate
+
+
+3. 볼링점수 테이블 :	scores
+- 볼링경기번호 	game_no			varchar2(10),
+- 회원번호: 		member_no		varchar2(6)	foreign key, - 부모테이블: members (member_no)
+- 1G 볼링점수:	score_1g		number(3),
+- 2G 볼링점수:	score_2g		number(3),
+- 3G 볼링점수:	score_3g		number(3),
+- 볼링 경기 날짜:	bowling_date	date
+
+
+4. 댓글 테이블 : comments
+- 공지글번호: 	boards_no	number(5)	foreign key, - 부모테이블: boards(boards_no)
+- 댓글 번호: 	comment_no	number(10)	primary key,
+- 댓글 내용:	comment_content	varchar2(500),
+- 댓글 작성자:	comment_writer	varchar2(5),
+- 작성일자: 	wirter_date	date 		default sysdate
+
+
+==>공지글은 조인해서 들고오기 : 공지글번호(boards_no)와 조인 할 수 있는 key가 필요!!!!
+
+이미 만들어진 테이블의 제약조건은 수정이 불가능! -> 삭제후 추가하기!
+[부모테이블 삭제 시 자식 테이블까지 삭제하기 제약조건 추가]
+ALTER TABLE order_items 
+ADD FOREIGN KEY (item_id) 
+REFERENCES orders (id)
+ON DELETE CASCADE;
+
+
+
+
+[SQL]
+-- 데이터 입력
+insert into members 
+values ('Z001', '장효은', '010-1111' ,'22/06/01', '회장', '승인');
+
+-- 조회
+select * from members;
+select * from members order by 1;  --글번호에 따라 오름차순으로 정렬
+
+-- 수정
+<회원번호으로 조회 -> 회원전화번호 수정>
+update  members
+set       member_phone = '010-1234'
+where   member_no = 'Z002';
+
+<회원번호으로 조회 -> 승인여부 수정>
+update  members
+set       approval = '승인'
+where   member_no = 'Z015';
+
+-- 삭제
+delete   from members
+where   member_no = 'Z020';
+
+
+
+
+[구현하기]
+로그인 및 게시판 -> 
+todo.p20231128 참고 => 날짜 포멧 확인
+todo.p20231129 참고
