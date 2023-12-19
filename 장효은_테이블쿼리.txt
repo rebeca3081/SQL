@@ -1,0 +1,65 @@
+[생성한 테이블 쿼리]
+1. 회원 테이블
+create table members(
+    member_no	    varchar2(6) 	primary key,
+    member_name	    varchar2(10)	not null,
+    member_phone	    varchar2(10),
+    join_date	    date 		default sysdate,
+    grade		    varchar2(50)	default '신규회원',
+    approval	    varchar2(20)	default '미승인'
+);
+
+-- default '신규회원' -> default '준회원'으로 변경함
+alter table members
+modify     grade 	varchar2(50) 	default '준회원';
+
+-- 크기변경
+alter table members
+modify 	 member_name 	varchar2(20);
+
+
+2. 공지글 테이블
+create table boards(
+    board_no	    number(5)	    primary key,  
+    board_content	    varchar2(1000),
+    board_wirter	    varchar2(15)	   default '장효은',
+    board_date	    date 		    default sysdate
+);
+
+3. 볼링점수 테이블
+create table scores(
+    game_no	varchar2(10)    primary key,
+    score_no	varchar2(6),
+    score_1g	number(3),
+    score_2g	number(3),
+    score_3g	number(3),
+    bowling_date	date,
+    
+    foreign key (score_no)
+    references members (member_no)
+);
+
+4. 댓글 테이블
+create table comments(
+    board_no	    number(5),
+    comment_no	    number(10)	primary key,
+    comment_content   varchar2(500),
+    comment_writer	    varchar2(10),
+    wirter_date	    date 		default sysdate,
+    
+    foreign key (board_no)
+    references boards (board_no)
+    on delete cascade
+);
+
+5. 사용자 테이블
+create table users(
+   user_id		varchar2(20),
+   user_pw	number(20),
+   user_no		varchar2(6),
+   rights		varchar2(10),
+
+   foreign key (user_no)
+   references members (member_no)
+   on delete cascade
+);
