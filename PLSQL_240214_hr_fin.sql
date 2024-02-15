@@ -432,7 +432,7 @@ DECLARE
 BEGIN
     LOOP
         v_num := v_num + 1; -- 1, 2, 3, 4, 5까지증가
-        v_star := v_star || '*';
+        v_star := v_star || '*'; -- 문자의 결합
         DBMS_OUTPUT.PUT_LINE(v_star);
         EXIT WHEN v_num >= 5; -- 5일때 반복 종료
     END LOOP;
@@ -459,6 +459,17 @@ BEGIN
     FOR idx IN 1 .. 5 LOOP
         v_star := v_star || '*';
         DBMS_OUTPUT.PUT_LINE(v_star);
+    END LOOP;
+END;
+/
+
+--3-1) 이중 FOR LOOP
+BEGIN
+    FOR counter IN 1..5 LOOP
+        FOR i IN 1..counter LOOP
+            DBMS_OUTPUT.PUT('*'); -- System.out.print()
+        END LOOP;
+    DBMS_OUTPUT.PUT_LINE(''); -- 화면에 밀어내주는 역할
     END LOOP;
 END;
 /
